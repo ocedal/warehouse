@@ -10,38 +10,32 @@ import {
   Platform,
 } from 'react-native'
 import Colors from '../../constants/Colors'
-const ProductItem = (props) => {
-  // console.log('-->', props)
+const Order = (props) => {
+  //   console.log('props', props)
   let TouchableCmp = TouchableOpacity
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback
   }
   return (
     <View>
-      <TouchableCmp
-        onPress={props.orderNo ? props.location : props.onViewDetail}
-        useForeGround
-      >
+      <TouchableCmp onPress={props.onViewDetail} useForeGround>
         <View style={styles.item}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: props.image }} />
-          </View>
           <View style={styles.details}>
-            <Text>{props.title}</Text>
-            <Text>{props.quantity}</Text>
+            <Text style={styles.text}>Order Number: {props.orderNo}</Text>
+            <Text style={styles.text}>Client: {props.client}</Text>
+            <Text style={styles.text}>Status: {props.status}</Text>
           </View>
           <View style={styles.actions}>
             <Button
               color={Colors.primary}
-              title={props.orderNo ? 'Location' : 'View Details'}
-              onPress={props.orderNo ? props.location : props.onViewDetail}
+              title='View Details'
+              onPress={props.onViewDetail}
             />
-            <Button
+            {/* <Button
               color={Colors.primary}
-              title={props.orderNo ? 'Fullfill' : 'Add to Stock'}
-              onPress={props.orderNo ? props.Fullfill : props.addToStock}
-              // disabled={props.orderNo ? false : true}
-            />
+              title='add to order'
+              onPress={props.onAddToOrder}
+            /> */}
           </View>
         </View>
       </TouchableCmp>
@@ -49,6 +43,12 @@ const ProductItem = (props) => {
   )
 }
 const styles = StyleSheet.create({
+  text: {
+    marginVertical: 5,
+
+    fontSize: 20,
+    textAlign: 'center',
+  },
   item: {
     shadowColor: 'black',
     shadowOpacity: 0.26,
@@ -57,8 +57,9 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: 'white',
-    height: 300,
-    margin: 20,
+    height: 200,
+    margin: 10,
+    // fontSize: 28,
   },
   imageContainer: {
     width: '100%',
@@ -74,18 +75,23 @@ const styles = StyleSheet.create({
   details: {
     alignItems: 'center',
     height: '15%',
-    padding: 10,
+    // padding: 10,
+    margin: 10,
+    // fontSize: 28,
   },
   title: {
     fontSize: 18,
     marginVertical: 4,
   },
   actions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flex: 1,
+    // flexDirection: 'column',
+    // justifyContent: 'space-between',
+    margin: 70,
     alignItems: 'center',
-    height: '25%',
-    paddingHorizontal: 20,
+    height: '50%',
+    // width: '100%',
+    // paddingHorizontal: 20,
   },
 })
-export default ProductItem
+export default Order

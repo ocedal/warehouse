@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 const ItemDetails = (props) => {
   const SKU = props.route.params.SKU
-  console.log(sku)
+  // console.log(SKU)
   const selectedItem = useSelector((state) =>
-    state.items.availableItems.find((elem) => elem.SKU === SKU)
+    state.items.allItems.find((elem) => elem.SKU === SKU)
   )
   useEffect(() => {
     props.navigation.setOptions({ title: selectedItem.title })

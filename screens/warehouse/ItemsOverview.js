@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux'
 import ProductItem from '../../components/warehouse/ProductItem'
 
 const ItemsOverview = (props) => {
-  const items = useSelector((state) => state.items.availableItems)
+  const items = useSelector((state) => state.items.allItems)
   // const statess = useSelector((state) => state)
-  // console.log('aaa', statess)
+  // console.log('------->', statess.orders.allOrders)
   // console.log(typeof items[0].title)
   // console.log(props.navigation.setOptions)
 
@@ -27,7 +27,7 @@ const ItemsOverview = (props) => {
               // title: itemData.item.title,
             })
           }}
-          onAddToOrder={() => {}}
+          AddToStock={() => {}}
         />
         // <Text>{itemData.item.title}</Text>
       )}
