@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { View, Text, Button } from 'react-native'
 import { NavigationContainer, DrawerActions } from '@react-navigation/native'
 import {
   createDrawerNavigator,
@@ -8,7 +7,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer'
 import MyStack from './itemsNavigation'
-import orderStack from './ordersNavigation'
+import OrderStack from './ordersNavigation'
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -33,7 +32,7 @@ function MyDrawer() {
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
-        <Drawer.Screen name='Orders' component={orderStack} />
+        <Drawer.Screen name='Orders' component={OrderStack} />
         <Drawer.Screen name='Warehouse' component={MyStack} />
         {/* <Drawer.Screen name='Notifications' component={Notifications} /> */}
       </Drawer.Navigator>

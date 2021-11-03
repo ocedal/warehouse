@@ -11,14 +11,14 @@ import {
 } from 'react-native'
 import Colors from '../../constants/Colors'
 const Order = (props) => {
-  //   console.log('props', props)
+  // console.log('---------->', props)
   let TouchableCmp = TouchableOpacity
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback
   }
   return (
     <View>
-      <TouchableCmp onPress={props.onViewDetail} useForeGround>
+      <TouchableCmp onPress={props.orderDetails} useForeGround>
         <View style={styles.item}>
           <View style={styles.details}>
             <Text style={styles.text}>Order Number: {props.orderNo}</Text>
@@ -29,7 +29,7 @@ const Order = (props) => {
             <Button
               color={Colors.primary}
               title='View Details'
-              onPress={props.onViewDetail}
+              onPress={props.orderDetails}
             />
             {/* <Button
               color={Colors.primary}
