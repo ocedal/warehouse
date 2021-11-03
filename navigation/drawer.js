@@ -8,11 +8,17 @@ import {
 } from '@react-navigation/drawer'
 import MyStack from './itemsNavigation'
 import OrderStack from './ordersNavigation'
+import Colors from '../constants/Colors'
 function CustomDrawerContent(props) {
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView
+      {...props}
+      // inactiveBackgroundColor={Colors.primary}
+    >
       <DrawerItemList {...props} />
       <DrawerItem
+        // inactiveBackgroundColor={Colors.primary}
+        // activeTintColor={Colors.primary}
         label='Close'
         onPress={() => props.navigation.dispatch(DrawerActions.closeDrawer())}
       />
@@ -30,6 +36,9 @@ function MyDrawer() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
+        screenOptions={{
+          drawerActiveTintColor: '#2dcdc6',
+        }}
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen name='Orders' component={OrderStack} />
