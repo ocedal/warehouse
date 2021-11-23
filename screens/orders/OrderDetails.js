@@ -3,6 +3,7 @@ import { FlatList } from 'react-native'
 import { useSelector } from 'react-redux'
 import OrderItem from '../../components/orders/OrderItem'
 const OrderDetails = (props) => {
+  // console.log('vvv',props)
   const orderNo = props.route.params.orderNo
   const selectedOrder = useSelector((state) =>
     state.orders.allOrders.find((elem) => elem.orderNo === orderNo)
@@ -23,6 +24,9 @@ const OrderDetails = (props) => {
           SKU={itemData.item.SKU}
           quantity={itemData.item.quantity}
           orderNo={selectedOrder.orderNo}
+          fullfill={() => {
+            props.navigation.navigate('Scanner')
+          }}
         />
       )}
     />

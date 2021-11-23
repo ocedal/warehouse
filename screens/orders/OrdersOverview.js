@@ -1,9 +1,17 @@
-import React from 'react'
-import { FlatList, Text } from 'react-native'
-import { useSelector } from 'react-redux'
-import Order from '../../components/orders/Order'
+import React from "react";
+import { FlatList, Text } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import Order from "../../components/orders/Order";
+import { fetchOrders } from "../../store/slices/orderSlice";
+// import { getOrdersDB } from "../../database/firebase";
+
+// import {db} from '../../database/firebase'
 const OrdersOverview = (props) => {
-  const orders = useSelector((state) => state.orders.allOrders)
+  const dispatch = useDispatch();
+  dispatch(fetchOrders);
+  const orders = useSelector((state) => state.orders.allOrders);
+  const state = useSelector((state) => state);
+  console.log("a", state);
   return (
     <FlatList
       data={orders}
@@ -14,14 +22,17 @@ const OrdersOverview = (props) => {
           client={orderData.item.client}
           status={orderData.item.status}
           itemsSKU={orderData.item.itemsSKU}
+          // fullfill={() => {
+          //   props.navigation.navigate('Screen')
+          // }}
           orderDetails={() => {
-            props.navigation.navigate('OrderDetails', {
+            props.navigation.navigate("OrderDetails", {
               orderNo: orderData.item.orderNo,
-            })
+            });
           }}
         />
       )}
     />
-  )
-}
-export default OrdersOverview
+  );
+};
+export default OrdersOverview;

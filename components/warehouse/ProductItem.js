@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import Colors from '../../constants/Colors'
 const ProductItem = (props) => {
+  // console.log('qqqqqq',props)
   let TouchableCmp = TouchableOpacity
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback
@@ -38,7 +39,7 @@ const ProductItem = (props) => {
             <Button
               color={Colors.primary}
               title={props.orderNo ? 'Fullfill' : 'Add to Stock'}
-              onPress={props.orderNo ? props.Fullfill : props.addToStock}
+              onPress={props.orderNo ? props.fullfill: props.addToStock}
               // disabled={props.orderNo ? false : true}
             />
           </View>
