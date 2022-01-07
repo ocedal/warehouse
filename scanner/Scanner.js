@@ -1,21 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-
-export default function Scanner() {
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Button } from "react-native";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { fullfillThunk, fetchItems } from "../store/slices/itemSlice";
+import { useDispatch } from "react-redux";
+import Colors from "../constants/Colors";
+export default function Scanner(props) {
+  const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-
+  // console.log("scanner params", props.route.params);
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    // console.log("inside handler", props.route.params.SKU == data);
+    if (props.route.params.SKU == data) {
+      dispatch(
+        fullfillThunk({
+          SKU: props.route.params.SKU,
+          orderNo: props.route.params.orderNo,
+        })
+      );
+      // console.log("00000000");
+      // dispatch(fetchItems());
+    }
+    alert(`Item with SKU: ${data} has been scanned`);
   };
 
   if (hasPermission === null) {
@@ -31,15 +45,21 @@ export default function Scanner() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      {scanned && (
+        <Button
+          color={Colors.primary}
+          title={"Tap to Scan Again"}
+          onPress={() => setScanned(false)}
+        />
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',
-    },
-  });
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   View,
   Text,
@@ -8,84 +8,81 @@ import {
   TouchableOpacity,
   TouchableNativeFeedback,
   Platform,
-} from 'react-native'
-import Colors from '../../constants/Colors'
+} from "react-native";
+import Colors from "../../constants/Colors";
 const ProductItem = (props) => {
-  // console.log('qqqqqq',props)
-  let TouchableCmp = TouchableOpacity
-  if (Platform.OS === 'android' && Platform.Version >= 21) {
-    TouchableCmp = TouchableNativeFeedback
+  let TouchableCmp = TouchableOpacity;
+  if (Platform.OS === "android" && Platform.Version >= 21) {
+    TouchableCmp = TouchableNativeFeedback;
   }
   return (
     <View>
       <TouchableCmp
         onPress={props.orderNo ? props.location : props.onViewDetail}
-        useForeGround
-      >
+        useForeGround>
         <View style={styles.item}>
           <View style={styles.imageContainer}>
             <Image style={styles.image} source={{ uri: props.image }} />
           </View>
           <View style={styles.details}>
-            <Text>{props.title}</Text>
-            <Text>{props.quantity}</Text>
-          </View>
-          <View style={styles.actions}>
-            <Button
-              color={Colors.primary}
-              title={props.orderNo ? 'Location' : 'View Details'}
-              onPress={props.orderNo ? props.location : props.onViewDetail}
-            />
-            <Button
-              color={Colors.primary}
-              title={props.orderNo ? 'Fullfill' : 'Add to Stock'}
-              onPress={props.orderNo ? props.fullfill: props.addToStock}
-              // disabled={props.orderNo ? false : true}
-            />
+            <Text>Item: {props.title}</Text>
+            <Text>Availability: {props.quantity} pcs.</Text>
+            <View style={styles.last}>
+              <View style={styles.but}>
+                <Button
+                  color={Colors.primary}
+                  title={props.orderNo ? "Fullfill" : "Details"}
+                  onPress={props.orderNo ? props.fullfill : props.onViewDetail}
+                  // disabled={props.orderNo ? false : true}
+                />
+              </View>
+            </View>
           </View>
         </View>
       </TouchableCmp>
     </View>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   item: {
-    shadowColor: 'black',
+    flexDirection: "row",
+    shadowColor: "black",
     shadowOpacity: 0.26,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
     elevation: 5,
     borderRadius: 10,
-    backgroundColor: 'white',
-    height: 300,
+    backgroundColor: "white",
+    height: 100,
     margin: 20,
   },
   imageContainer: {
-    width: '100%',
-    height: '60%',
+    width: 70,
+    height: 100,
     borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    overflow: 'hidden',
+    borderBottomLeftRadius: 10,
+    overflow: "hidden",
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   details: {
-    alignItems: 'center',
-    height: '15%',
     padding: 10,
   },
-  title: {
-    fontSize: 18,
-    marginVertical: 4,
+  // actions: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   alignItems: "center",
+  //   height: "25%",
+  //   paddingHorizontal: 20,
+  // },
+  last: {
+    justifyContent: "flex-end",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingTop: "10%",
+    paddingLeft: "20%",
   },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: '25%',
-    paddingHorizontal: 20,
-  },
-})
-export default ProductItem
+});
+export default ProductItem;

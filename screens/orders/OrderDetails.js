@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react'
-import { FlatList } from 'react-native'
-import { useSelector } from 'react-redux'
-import OrderItem from '../../components/orders/OrderItem'
+import React, { useEffect } from "react";
+import { FlatList } from "react-native";
+import { useSelector } from "react-redux";
+import OrderItem from "../../components/orders/OrderItem";
 const OrderDetails = (props) => {
-  // console.log('vvv',props)
-  const orderNo = props.route.params.orderNo
+  // console.log("vvv", props);
+  const orderNo = props.route.params.orderNo;
   const selectedOrder = useSelector((state) =>
     state.orders.allOrders.find((elem) => elem.orderNo === orderNo)
-  )
-  const items = selectedOrder.itemsSKU
+  );
+  const items = selectedOrder.itemsSKU;
   useEffect(() => {
     props.navigation.setOptions({
-      title: 'Order No. ' + selectedOrder.orderNo,
-    })
-  })
+      title: "Order No. " + selectedOrder.orderNo,
+    });
+  });
 
   return (
     <FlatList
@@ -23,14 +23,18 @@ const OrderDetails = (props) => {
         <OrderItem
           SKU={itemData.item.SKU}
           quantity={itemData.item.quantity}
-          orderNo={selectedOrder.orderNo}
+          orderNo={orderNo}
           fullfill={() => {
-            props.navigation.navigate('Scanner')
+            props.navigation.navigate("Scanner", {
+              SKU: itemData.item.SKU,
+              quantity: itemData.item.quantity,
+              orderNo: orderNo,
+            });
           }}
         />
       )}
     />
-  )
-}
+  );
+};
 
-export default OrderDetails
+export default OrderDetails;

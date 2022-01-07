@@ -4,10 +4,20 @@ import { useSelector, useDispatch } from "react-redux";
 import ProductItem from "../../components/warehouse/ProductItem";
 import { getItemsDB } from "../../database/firebase";
 import { fetchItems, fetch } from "../../store/slices/itemSlice";
+import { fetchOrders } from "../../store/slices/orderSlice";
+import { useGetItemsQuery } from "../../store/APISlices/items";
 
 const ItemsOverview = (props) => {
-  const dispatch = useDispatch();
-  dispatch(fetchItems());
+  // const dispatch = useDispatch();
+  // const { data, error, isLoading } = useGetItemsQuery();
+  // console.log(data, error, isLoading);
+  // try {
+  // const useQueryResult = getItemsApi.endpoints.getPost.useQuery();
+  // } catch (e) {}
+
+  // console.log("-------->", useQueryResult);
+  // dispatch(fetchItems());
+  // dispatch(fetchOrders());
   // const alt = getItemsDB();
   // console.log("aaa", alt);
   const items = useSelector((state) => state.items.allItems);
